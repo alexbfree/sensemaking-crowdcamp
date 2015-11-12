@@ -1,11 +1,21 @@
 
 <?php
 
-$blog = $_GET['blog'];
-$data = $_GET['data'];
-$dataset = $_GET['ds'];
-$assignmentId = $_GET['assignmentId'];
+require_once './mysql.php';
 
+//$blog = $_GET['blog'];
+//$data = $_GET['data'];
+$datasetID = $_GET['dataset'];
+
+$q = "SELECT * FROM dataset WHERE id = ".$datasetID;
+$result = mysql_query($q);
+if($row = mysql_fetch_assoc($result)) {
+	$data = $row['data'];
+}
+
+
+$assignmentId = $_GET['assignmentId'];
+$workerId = $_GET['workerId'];
 
 $imgEvidence = array(
 	'i-A-1' => 'i-A-1.jpg',
@@ -50,99 +60,22 @@ shuffle($evidence);
 	<meta charset="utf-8"/>
 	<title>Crowd Camp Sensemaking</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<style type="text/css">
-
-	body, html {
-		font-family: Helvetica, Arial, sans-serif;
-		}
-
-	table {
-		border-top: 1px solid #ccc;
-		border-bottom: 1px solid #ccc;
-		border-collapse: collapse;
-		}
-
-	td {
-		padding: 1em;
-		width: 25%;
-		border-right: 1px solid #ccc;
-		vertical-align: top;
-		}
-
-	img {
-		width: 100%;
-		}
-
-	select {
-		font-size: large;
-		}
-
-	h2 {
-		}
-
-	p {
-		font-size: medium;
-		}
-
-	textarea {
-		width: 50%;
-		height: 80px;
-		display: block;
-		margin: 5px 0;
-	}
-
-	input.submit {
-		font-size: large;
-		}
-
-	</style>
-	<script type="text/javascript">
-
-	$(document).ready(function(){
-		
-		$('#form0').submit(function(){
-			return validate();
-		});
-
-	});
-
-	function validate() {
-		var validate = true;
-
-		// check sequence 
-		$('.sequence').each(function(){
-			if($(this).val() == '') {
-				alert("Please pick a sequence for each piece of evidence.");
-				validate = false;
-				return false;
-			}
-		});
-
-		// check summary
-		if($('#summary').val() == '') {
-			alert("Please provide a summary.");
-			validate = false;
-			return false;
-		} 
-
-		return validate;
-	}
-
-	</script>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script type="text/javascript" src="scripts.js"></script>
 </head>
 <body>
  
 
-	<form id="form0" name="form0" action="https://www.mturk.com/mturk/externalSubmit" method="POST">
+	<form id="form0" name="form0" action="process.php" method="POST">
 
-	<input type="hidden" name="blog" value="<?= $blog ?>" />
-	<input type="hidden" name="data" value="<?= $data ?>" />
-	<input type="hidden" name="dataset" value="<?= $dataset ?>" />
+	<input type="hidden" name="dataset" value="<?= $datasetID ?>" />
+	<input type="hidden" name="assignmentId" value="<?= $assignmentId ?>" />
+	<input type="hidden" name="workerId" value="<?= $workerId ?>" />
+
 	<input type="hidden" name="position1" value="<?= $evidence[0] ?>" />
 	<input type="hidden" name="position2" value="<?= $evidence[1] ?>" />
 	<input type="hidden" name="position3" value="<?= $evidence[2] ?>" />
 	<input type="hidden" name="position4" value="<?= $evidence[3] ?>" />
-	<input type="hidden" name="assignmentId" value="<?= $assignmentId ?>" />
 
     <h2>Find the sequence</h2>
 
