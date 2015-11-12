@@ -1,0 +1,42 @@
+body, html {
+		font-family: Helvetica, Arial, sans-serif;
+		}
+
+table {
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-collapse: collapse;
+	}
+
+td {
+	padding: 1em;
+	width: 25%;
+	border-right: 1px solid #ccc;
+	vertical-align: top;
+	}
+
+img {
+	width: 100%;
+	}
+
+select {
+	font-size: large;
+	}
+
+h2 {
+	}
+
+p {
+	font-size: medium;
+	}
+
+textarea {
+	width: 50%;
+	height: 80px;
+	display: block;
+	margin: 5px 0;
+}
+
+input.submit {
+	font-size: large;
+	}
