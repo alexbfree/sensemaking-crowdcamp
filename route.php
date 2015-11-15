@@ -22,7 +22,7 @@ function findDataSet($workerID, $workersPerTask=3) {
 	while($row = mysql_fetch_assoc($result)) {
 		$datasetID = $row['id'];
 
-		$q2 = sprintf("SELECT * FROM task WHERE dataset_id = %d AND worker_id != '%s' ",
+		$q2 = sprintf("SELECT * FROM task WHERE dataset_id = %d AND worker_id != '%s' AND bad=0 ",
 			$datasetID,
 			$workerID
 			);
